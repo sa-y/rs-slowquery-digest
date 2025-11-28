@@ -1,0 +1,12 @@
+[package]
+name = "rs-query-digest"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+clap = { version = "4.4", features = ["derive"] }
+regex = "1.10"
+chrono = "0.4"
+tabled = "0.15"
+anyhow = "1.0"
+md5 = "0.8.0"
