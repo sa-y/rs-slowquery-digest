@@ -1,0 +1,4 @@
+# Time: 2023-10-27T10:00:03.000000Z
+# User@Host: root[root] @ localhost []  Id:     3
+# Query_time: 1.000000  Lock_time: 0.000000 Rows_sent: 10  Rows_examined: 100
+SELECT * FROM products WHERE id = 1;
