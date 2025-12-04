@@ -4,6 +4,7 @@ use regex::Regex;
 use std::io::BufRead;
 use std::sync::OnceLock;
 
+/// Represents a parsed slow query.
 #[derive(Debug, Clone, PartialEq)]
 pub struct Query {
     pub query_time: f64,
@@ -19,6 +20,7 @@ static RE_HEADER_USER: OnceLock<Regex> = OnceLock::new();
 static RE_HEADER_TIME: OnceLock<Regex> = OnceLock::new();
 static RE_HEADER_METRICS: OnceLock<Regex> = OnceLock::new();
 
+/// Parses a slow query log stream.
 pub struct LogParser<R> {
     reader: R,
     current_block: String,
@@ -26,6 +28,7 @@ pub struct LogParser<R> {
 }
 
 impl<R: BufRead> LogParser<R> {
+    /// Creates a new `LogParser` for the given reader.
     pub fn new(reader: R) -> Self {
         Self {
             reader,
@@ -34,6 +37,7 @@ impl<R: BufRead> LogParser<R> {
         }
     }
 
+    /// Parses a single block of log lines into a `Query`.
     fn parse_block(&self, block: &str) -> Option<Query> {
         if block.is_empty() {
             return None;
@@ -90,6 +94,7 @@ impl<R: BufRead> LogParser<R> {
             sql_text,
         })
     }
+    /// Checks if a block contains any SQL statements.
     fn has_sql(&self, block: &str) -> bool {
         for line in block.lines() {
             let trimmed = line.trim();
@@ -153,6 +158,7 @@ impl<R: BufRead> Iterator for LogParser<R> {
     }
 }
 
+/// Convenience function to create a `LogParser`.
 pub fn parse_log<R: BufRead>(reader: R) -> LogParser<R> {
     LogParser::new(reader)
 }

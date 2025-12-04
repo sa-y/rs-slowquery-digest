@@ -42,19 +42,19 @@ rs-slowquery-digest [OPTIONS] [FILES]...
 **1. Analyze a single log file and output a table to stdout:**
 
 ```bash
-rs-slowquery-digest sample_logs/slowquery-20250911.log
+rs-slowquery-digest sample_logs/test_slow_01.log
 ```
 
 **2. Analyze multiple files and generate an HTML report:**
 
 ```bash
-rs-slowquery-digest --format html --output report.html sample_logs/slowquery-20250911.log sample_logs/slow2.log
+rs-slowquery-digest --format html --output report.html sample_logs/test_slow_01.log sample_logs/test_multiline.log
 ```
 
 **3. Analyze from stdin with a specific timezone and limit:**
 
 ```bash
-cat sample_logs/slowquery-20250911.log | rs-slowquery-digest --timezone "+09:00" --limit 10
+cat sample_logs/test_slow_large.log | rs-slowquery-digest --timezone "+09:00" --limit 10
 ```
 
 ## License

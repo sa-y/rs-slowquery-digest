@@ -7,6 +7,14 @@ static RE_WHITESPACE: OnceLock<Regex> = OnceLock::new();
 static RE_COMMENT: OnceLock<Regex> = OnceLock::new();
 static RE_USE: OnceLock<Regex> = OnceLock::new();
 
+/// Generates a fingerprint for a SQL query by normalizing it.
+///
+/// Normalization includes:
+/// - Removing `USE` statements
+/// - Removing comments
+/// - Replacing strings and numbers with `?`
+/// - Collapsing whitespace
+/// - Converting to lowercase
 pub fn fingerprint(sql: &str) -> String {
     let re_number = RE_NUMBER.get_or_init(|| Regex::new(r"\b\d+\b").unwrap());
     let re_string = RE_STRING.get_or_init(|| Regex::new(r"'(?:[^']|'')*'").unwrap()); // Simple string regex

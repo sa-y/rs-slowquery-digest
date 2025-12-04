@@ -3,6 +3,7 @@ use crate::fingerprint::fingerprint;
 use std::collections::HashMap;
 use chrono::{DateTime, Utc};
 
+/// Aggregated statistics for a specific query fingerprint.
 #[derive(Debug)]
 pub struct QueryStats {
     pub count: u64,
@@ -38,6 +39,7 @@ impl Default for QueryStats {
     }
 }
 
+/// Aggregates a stream of parsed queries into statistics grouped by fingerprint.
 pub fn aggregate(queries: impl Iterator<Item = anyhow::Result<Query>>) -> HashMap<String, QueryStats> {
     let mut stats_map: HashMap<String, QueryStats> = HashMap::new();
 

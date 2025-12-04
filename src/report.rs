@@ -5,6 +5,7 @@ use std::path::PathBuf;
 use std::io::Write;
 use tabled::{Table, Tabled};
 
+/// Represents a row in the summary table.
 #[derive(Tabled)]
 struct Row {
     #[tabled(rename = "Rank")]
@@ -21,6 +22,7 @@ struct Row {
     query: String,
 }
 
+/// Represents a single item in the report, corresponding to a unique query fingerprint.
 #[derive(Debug)]
 struct ReportItem {
     rank: usize,
@@ -41,6 +43,15 @@ struct ReportItem {
     normalized_query: String,
 }
 
+/// Generates and prints the slow query report based on the provided statistics.
+///
+/// # Arguments
+///
+/// * `stats` - A map of query fingerprints to their statistics.
+/// * `format` - The desired output format (Table or HTML).
+/// * `output_path` - Optional path to write the report to. If None, writes to stdout.
+/// * `timezone_str` - Timezone string for formatting timestamps.
+/// * `limit` - Maximum number of queries to include in the report.
 pub fn print_report(stats: HashMap<String, QueryStats>, format: OutputFormat, output_path: Option<&PathBuf>, timezone_str: &str, limit: usize) -> anyhow::Result<()> {
     let items = prepare_report_items(stats, timezone_str, limit);
 
@@ -76,6 +87,9 @@ pub fn print_report(stats: HashMap<String, QueryStats>, format: OutputFormat, ou
     Ok(())
 }
 
+/// Prepares the list of `ReportItem`s from the raw statistics.
+///
+/// Sorts the queries by total execution time and limits the result.
 fn prepare_report_items(stats: HashMap<String, QueryStats>, timezone_str: &str, limit: usize) -> Vec<ReportItem> {
     let mut stats_vec: Vec<(String, QueryStats)> = stats.into_iter().collect();
     
@@ -133,6 +147,7 @@ fn prepare_report_items(stats: HashMap<String, QueryStats>, timezone_str: &str, 
     }).collect()
 }
 
+/// Prints the detailed sections of the report in text format.
 fn print_detailed_sections(items: &[ReportItem], writer: &mut dyn Write) -> anyhow::Result<()> {
     writeln!(writer, "\nDetailed Report\n===============")?;
     
@@ -161,6 +176,7 @@ fn print_detailed_sections(items: &[ReportItem], writer: &mut dyn Write) -> anyh
     Ok(())
 }
 
+/// Prints the report in HTML format.
 fn print_html(items: &[ReportItem], writer: &mut dyn Write) -> anyhow::Result<()> {
     writeln!(writer, "<!DOCTYPE html>")?;
     writeln!(writer, "<html>")?;
@@ -254,6 +270,7 @@ fn print_html(items: &[ReportItem], writer: &mut dyn Write) -> anyhow::Result<()
     Ok(())
 }
 
+/// Escapes special characters for HTML output.
 fn html_escape(s: &str) -> String {
     s.replace("&", "&amp;")
      .replace("<", "&lt;")
@@ -262,6 +279,7 @@ fn html_escape(s: &str) -> String {
      .replace("'", "&#39;")
 }
 
+/// Calculates the percentile value from a list of values.
 fn percentile(times: &[f64], p: f64) -> f64 {
     if times.is_empty() {
         return 0.0;
@@ -271,6 +289,7 @@ fn percentile(times: &[f64], p: f64) -> f64 {
     times[idx.min(times.len() - 1)]
 }
 
+/// Formats a query string for display, truncating if necessary for table view.
 fn format_query(query: &str, format: &OutputFormat) -> String {
     match format {
         OutputFormat::Table => {
@@ -285,6 +304,7 @@ fn format_query(query: &str, format: &OutputFormat) -> String {
     }
 }
 
+/// Prints the summary table to the writer.
 fn print_table(rows: Vec<Row>, writer: &mut dyn Write) -> anyhow::Result<()> {
     let table = Table::new(rows).to_string();
     writeln!(writer, "{}", table)?;

@@ -8,6 +8,7 @@ use std::fs::File;
 use std::io::{self, BufReader};
 use std::path::PathBuf;
 
+/// Command line arguments for the slow query digest tool.
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
 struct Args {
@@ -32,12 +33,17 @@ struct Args {
     limit: usize,
 }
 
+/// Supported output formats for the report.
 #[derive(clap::ValueEnum, Clone, Debug)]
 enum OutputFormat {
     Table,
     Html,
 }
 
+/// Main entry point for the application.
+///
+/// Parses command line arguments, reads log files (or stdin),
+/// aggregates query statistics, and prints the report.
 fn main() -> anyhow::Result<()> {
     let args = Args::parse();
 
