@@ -2,6 +2,9 @@
 name = "rs-slowquery-digest"
 version = "0.1.0"
 edition = "2021"
+authors = ["Masahiko, SAWAI<masahiko.sawai@gmail.com>"]
+license-file = "LICENSE"
+default-run = "rs-slowquery-digest"
 
 [dependencies]
 clap = { version = "4.4", features = ["derive"] }
