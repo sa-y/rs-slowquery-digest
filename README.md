@@ -29,7 +29,7 @@ rs-slowquery-digest [OPTIONS] [FILES]...
 
 ### Options
 
-*   `--files <FILES>`: Path to the slow query log file(s) (alternative to positional arguments).
+
 *   `--format <FORMAT>`: Output format. Values: `table` (default), `html`.
 *   `-o, --output <OUTPUT>`: Output file path. If not specified, prints to stdout.
 *   `--timezone <TIMEZONE>`: Timezone offset (e.g., "+09:00"). Default: "+00:00".

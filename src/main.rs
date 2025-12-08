@@ -13,7 +13,7 @@ use std::path::PathBuf;
 #[command(author, version, about, long_about = None)]
 struct Args {
     /// Path to the slow query log file(s)
-    #[arg(long = "files", num_args = 1..)]
+    #[arg(name = "files", num_args = 0..)]
     files: Vec<PathBuf>,
 
     /// Output format
