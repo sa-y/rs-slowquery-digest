@@ -30,7 +30,7 @@ rs-slowquery-digest [OPTIONS] [FILES]...
 ### Options
 
 
-*   `--format <FORMAT>`: Output format. Values: `table` (default), `html`.
+*   `--format <FORMAT>`: Output format. Values: `table` (default), `html`, `markdown`.
 *   `-o, --output <OUTPUT>`: Output file path. If not specified, prints to stdout.
 *   `--timezone <TIMEZONE>`: Timezone offset (e.g., "+09:00"). Default: "+00:00".
 *   `--limit <LIMIT>`: Number of queries to show in the report. Default: 20.

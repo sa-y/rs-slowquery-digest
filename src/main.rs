@@ -1,6 +1,6 @@
-mod parser;
-mod fingerprint;
 mod aggregator;
+mod fingerprint;
+mod parser;
 mod report;
 
 use clap::Parser;
@@ -38,6 +38,7 @@ struct Args {
 enum OutputFormat {
     Table,
     Html,
+    Markdown,
 }
 
 /// Main entry point for the application.
@@ -68,7 +69,13 @@ fn main() -> anyhow::Result<()> {
     let combined_parser = parsers.flatten();
 
     let stats = aggregator::aggregate(combined_parser);
-    report::print_report(stats, args.format, args.output.as_ref(), &args.timezone, args.limit)?;
+    report::print_report(
+        stats,
+        args.format,
+        args.output.as_ref(),
+        &args.timezone,
+        args.limit,
+    )?;
 
     Ok(())
 }
