@@ -197,16 +197,16 @@ fn print_detailed_sections(items: &[ReportItem], writer: &mut dyn Write) -> anyh
 
     for item in items {
         writeln!(writer, "\nQuery ID: {}", item.query_id)?;
-        writeln!(writer, "Rank: {}", item.rank)?;
+        writeln!(writer, "  Rank: {}", item.rank)?;
         writeln!(writer, "  Time Range: {}", item.time_range)?;
         writeln!(writer, "  Execution Stats:")?;
         writeln!(writer, "    Count: {}", item.count)?;
-        writeln!(writer, "    Total Time: {:.3}s", item.total_time)?;
-        writeln!(writer, "    Mean Time:  {:.3}s", item.mean_time)?;
-        writeln!(writer, "    P95:        {:.3}s", item.p95)?;
-        writeln!(writer, "    P99:        {:.3}s", item.p99)?;
-        writeln!(writer, "    Total Lock Time: {:.3}s", item.total_lock_time)?;
-        writeln!(writer, "    Mean Lock Time:  {:.3}s", item.mean_lock_time)?;
+        writeln!(writer, "    Total Time(sec):  {:.3}", item.total_time)?;
+        writeln!(writer, "    Mean Time(sec):   {:.3}", item.mean_time)?;
+        writeln!(writer, "    P95(sec):         {:.3}", item.p95)?;
+        writeln!(writer, "    P99(sec):         {:.3}", item.p99)?;
+        writeln!(writer, "    Total Lock Time(sec): {:.3}", item.total_lock_time)?;
+        writeln!(writer, "    Mean Lock Time(sec):  {:.3}", item.mean_lock_time)?;
         writeln!(writer, "  Row Stats:")?;
         writeln!(writer, "    Sent:       {}", item.rows_sent)?;
         writeln!(writer, "    Examined:   {}", item.rows_examined)?;
