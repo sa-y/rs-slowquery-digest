@@ -1,4 +1,4 @@
-// dummy project for wix
+# dummy project for wix
 [package]
 name = "wix"
 version = "0.1.0"
