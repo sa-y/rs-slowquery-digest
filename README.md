@@ -6,7 +6,7 @@
 
 *   **Log Parsing**: Efficiently parses MySQL slow query logs.
 *   **Aggregation**: Groups similar queries and calculates statistics (count, time, lock time, rows sent/examined).
-*   **Multiple Output Formats**: Supports both text-based **Table** format and **HTML** reports.
+*   **Multiple Output Formats**: Supports both text-based **Table** format and **HTML** and **Markdown** reports.
 *   **Timezone Support**: Allows specifying the timezone for the report.
 
 ## Installation
