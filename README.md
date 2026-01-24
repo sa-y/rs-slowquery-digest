@@ -34,6 +34,7 @@ rs-slowquery-digest [OPTIONS] [FILES]...
 *   `-o, --output <OUTPUT>`: Output file path. If not specified, prints to stdout.
 *   `--timezone <TIMEZONE>`: Timezone offset (e.g., "+09:00"). Default: "+00:00".
 *   `--limit <LIMIT>`: Number of queries to show in the report. Default: 20.
+*   `--min-query-time <SECONDS>`: Filter queries faster than this duration. Default: 0.0.
 *   `-h, --help`: Print help.
 *   `-V, --version`: Print version.
 

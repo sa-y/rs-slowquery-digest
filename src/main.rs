@@ -31,6 +31,10 @@ struct Args {
     /// Number of queries to show in the report
     #[arg(long, default_value_t = 20)]
     limit: usize,
+
+    /// Filter queries faster than this duration (in seconds)
+    #[arg(long, default_value_t = 0.0)]
+    min_query_time: f64,
 }
 
 /// Supported output formats for the report.
@@ -68,7 +72,18 @@ fn main() -> anyhow::Result<()> {
     let parsers = readers.into_iter().map(parser::parse_log);
     let combined_parser = parsers.flatten();
 
-    let stats = aggregator::aggregate(combined_parser);
+    let filtered_parser = combined_parser.filter_map(|res| match res {
+        Ok(query) => {
+            if query.query_time >= args.min_query_time {
+                Some(Ok(query))
+            } else {
+                None
+            }
+        }
+        Err(e) => Some(Err(e)),
+    });
+
+    let stats = aggregator::aggregate(filtered_parser);
     report::print_report(
         stats,
         args.format,
